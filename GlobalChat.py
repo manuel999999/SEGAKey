@@ -213,7 +213,7 @@ def check_config(user):
             client_preferences.set_preference("globalChatPrefix", gchatSettings['prefix'])
         if client_preferences.get_preference('globalChat'):
             user.send_crypto_packet(packetFactory.SystemMessagePacket(
-                "[Proxy] {yel}Use %sg <Message> to chat in Global. Respect and don't flood." % (config.globalConfig.get_key('commandPrefix')),
+                "{yel}Use %sg <Message> to chat in Global. Respect and don't flood." % (config.globalConfig.get_key('commandPrefix')),
                 0x3).build())
         else:
             user.send_crypto_packet(packetFactory.SystemMessagePacket(

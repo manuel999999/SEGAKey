@@ -175,24 +175,22 @@ def EQResponse(response):
 
 
 def CheckupURL():
-	try:
-		HTTPHeader0 = Headers({'User-Agent': ['PSO2Proxy']}) #We need to send a User-Agent
-		if eqalert_config.key_exists('api'):
-			eq_URL = eqalert_config.get_key('api')
-		else:
-		   eq_URL = None
-		if eq_URL:
-			HTTPHeaderX = HTTPHeader0.copy()
-			if ETag_Header:
-			   HTTPHeaderX.addRawHeader('If-None-Match', ETag_Header)
-			if Modified_Header:
-			   HTTPHeaderX.addRawHeader('If-Modified-Since', Modified_Header)
-			#EQ0 = agent.request('GET', eq_URL, HTTPHeaderX)
-			EQ0 = agent.request('GET', eq_URL)
-			EQ0.addCallback(EQResponse)
-			EQ0.addErrback(log.err)
-	except Exception as ex1:
-		print("[EQ Alert] Opps Sorry, %s" % ex1)
+    HTTPHeader0 = Headers({'User-Agent': ['PSO2Proxy']}) #We need to send a User-Agent
+    if eqalert_config.key_exists('api'):
+        eq_URL = eqalert_config.get_key('api')
+    else:
+        eq_URL = None
+    if eq_URL:
+        HTTPHeaderX = HTTPHeader0.copy()
+        if ETag_Header:
+            HTTPHeaderX.addRawHeader('If-None-Match', ETag_Header)
+        if Modified_Header:
+            HTTPHeaderX.addRawHeader('If-Modified-Since', Modified_Header)
+        #EQ0 = agent.request('GET', eq_URL, HTTPHeaderX)
+	EQ0 = agent.request('GET', eq_URL)
+        EQ0.addCallback(EQResponse)
+        EQ0.addErrback(log.err)
+
 
 @plugins.on_start_hook
 def on_start():
